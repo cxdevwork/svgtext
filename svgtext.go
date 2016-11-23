@@ -1,64 +1,69 @@
 package hello
 
 import (
-    "fmt"
-    "net/http"
-    "time"
+	"fmt"
+	"net/http"
+	"time"
 )
 
 func init() {
-    http.HandleFunc("/svg/month", handler)
+	http.HandleFunc("/svg/month", handler)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
+	text := r.URL.Query().Get("text")
+	width := r.URL.Query().Get("width")
+	if width == "" {
+		width = "300"
+	}
 
-text := r.URL.Query().Get("text")
-width := r.URL.Query().Get("width")
-if width == "" {
-   width = "300"
-}
+	height := r.URL.Query().Get("height")
+	if height == "" {
+		height = "20"
+	}
 
-height := r.URL.Query().Get("height")
-if height  == "" {
-   height = "20"
-}
-dy := r.URL.Query().Get("dy")
+	dx := r.URL.Query().Get("dx")
 
-if dy  == "" {
-   dy = "-2.6em"
-}
+	if dx == "" {
+		dx = "0"
+	}
 
-fill := r.URL.Query().Get("fill")
+	dy := r.URL.Query().Get("dy")
 
-if fill  == "" {
-   fill = "000000"
-}
+	if dy == "" {
+		dy = "-2.6em"
+	}
 
+	fill := r.URL.Query().Get("fill")
 
-format := r.URL.Query().Get("format")
+	if fill == "" {
+		fill = "000000"
+	}
 
-if format  == "" {
-   format = "January 2006"
-}
+	format := r.URL.Query().Get("format")
 
+	if format == "" {
+		format = "January 2006"
+	}
 
+	size := r.URL.Query().Get("size")
 
-if text == "" {
-   text = time.Now().Format(format)
-} else {
-   text = text + " " + time.Now().Format(format)
-}
-    w.Header().Set("Content-Type","image/svg+xml")
-    
+	if size == "" {
+		size = "ANY SIZE"
+	}
 
+	if text == "" {
+		text = time.Now().Format(format)
+	} else {
+		text = text + " " + time.Now().Format(format)
+	}
+	w.Header().Set("Content-Type", "image/svg+xml")
 
-   output := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 %s %s">
-  
+	output := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 %s %s">
+    <text text-anchor="left"  style="font-family: Arial, Helvetica, Verdana" font-weight="bold" fill="#%s" dx='%s' dy='%s' font-size="%s">%s</text>
+</svg>`, width, height, fill, dx, dy, size, text)
 
-    <text text-anchor="left"  style="font-family: Arial, Helvetica, Verdana" font-weight="bold" fill="#%s" dy='%s' font-size="ANY SIZE">%s</text>
-</svg>`, width, height, fill, dy, text)
-
-  //  w.Header().Set("Content-Length", fmt.Sprintf("%d",len(output)))
-    fmt.Fprint(w, output)
+	//  w.Header().Set("Content-Length", fmt.Sprintf("%d",len(output)))
+	fmt.Fprint(w, output)
 }
