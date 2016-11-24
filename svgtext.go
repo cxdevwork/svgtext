@@ -26,7 +26,7 @@ func mthHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		y = 20
 	} else {
-		y = y / 1.5
+		y = y / 2.5
 	}
 	width := r.URL.Query().Get("width")
 	if width == "" {
@@ -78,7 +78,7 @@ func mthHandler(w http.ResponseWriter, r *http.Request) {
 
 	output := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 %s %s" >
     <text dominant-baseline="top" text-anchor="middle" x='%s' y='%s' style="font-family: Arial, Helvetica, Verdana" font-weight="bold" fill="#%s" dx='%s' dy='%s' font-size="%s">%s</text>
-</svg>`, width, height, fmt.Sprintf("%d", x), fmt.Sprintf("%d", y), fill, dx, dy, size, text)
+</svg>`, width, height, fmt.Sprintf("%d", x), fmt.Sprintf("%f", y), fill, dx, dy, size, text)
 
 	//  w.Header().Set("Content-Length", fmt.Sprintf("%f",len(output)))
 	fmt.Fprint(w, output)
