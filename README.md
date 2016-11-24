@@ -16,3 +16,4 @@ There are various options, for example:
 
 - Date http://svgtext.appspot.com/svg/date?size=15
 
+Time is based in "Australia/Sydney".
