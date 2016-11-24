@@ -69,10 +69,13 @@ func mthHandler(w http.ResponseWriter, r *http.Request) {
 		format = "January 2006"
 	}
 
+	t := time.Now()
+	sydney, _ := time.LoadLocation("Australia/Sydney")
+
 	if text == "" {
-		text = time.Now().Format(format)
+		text = t.In(sydney).Format(format)
 	} else {
-		text = text + " " + time.Now().Format(format)
+		text = text + " " + t.In(sydney).Format(format)
 	}
 	w.Header().Set("Content-Type", "image/svg+xml")
 
@@ -140,10 +143,12 @@ func dateHandler(w http.ResponseWriter, r *http.Request) {
 		format = "2006-01-02"
 	}
 
+	t := time.Now()
+	sydney, _ := time.LoadLocation("Australia/Sydney")
 	if text == "" {
-		text = time.Now().Format(format)
+		text = t.In(sydney).Format(format)
 	} else {
-		text = text + " " + time.Now().Format(format)
+		text = text + " " + t.In(sydney).Format(format)
 	}
 	w.Header().Set("Content-Type", "image/svg+xml")
 
