@@ -14,3 +14,5 @@ There are various options, for example:
 
 - Add text in front http://svgtext.appspot.com/svg/month?text=Port%20Melbourne%20Warehouse
 
+- Date http://svgtext.appspot.com/svg/date?size=15
+
