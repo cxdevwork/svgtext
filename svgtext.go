@@ -125,7 +125,7 @@ func dateHandler(w http.ResponseWriter, r *http.Request) {
 	dy := r.URL.Query().Get("dy")
 
 	if dy == "" {
-		dy = fmt.Sprintf("%f", y)
+		dy = "0"
 	}
 
 	fill := r.URL.Query().Get("fill")
@@ -149,7 +149,7 @@ func dateHandler(w http.ResponseWriter, r *http.Request) {
 
 	output := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 %s %s" >
     <text   text-anchor="end" x='%s' y='%s' style="font-family: Arial, Helvetica, Verdana" font-weight="bold" fill="#%s" dx='%s' dy='%s' font-size="%s">%s</text>
-</svg>`, width, height, fmt.Sprintf("%d", x), fmt.Sprintf("%d", y), fill, dx, dy, size, text)
+</svg>`, width, height, fmt.Sprintf("%d", x), fmt.Sprintf("%f", y), fill, dx, dy, size, text)
 
 	//  w.Header().Set("Content-Length", fmt.Sprintf("%f",len(output)))
 	fmt.Fprint(w, output)
