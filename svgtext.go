@@ -12,6 +12,7 @@ func init() {
 	http.HandleFunc("/svg/mthdate1", mth2Handler)
 	http.HandleFunc("/svg/date", dateHandler)
 	http.HandleFunc("/svg/previous3days", previous3daysHandler)
+	http.HandleFunc("/svg/previous5days", previous5daysHandler)
 }
 
 func mth2Handler(w http.ResponseWriter, r *http.Request) {
